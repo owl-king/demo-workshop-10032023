@@ -126,3 +126,8 @@ Variables:
  - CONTAINER_NAME
  - DEPLOYMENT_NAME
  - IMAGE
+
+10. Watch the status of the workflow.
+
+# Note
+1. For the first time the user runs the terraform code, you might get a error which relate to AliyunCSManagedNlcRole. Follow the link to create this role so ACK can manage the pool. [AliyunCSManagedNlcRole](https://ram.console.aliyun.com/role/authorization?spm=5176.2020520152.0.0.387f16ddEOZxMv&request=%7B%22Services%22%3A%5B%7B%22Service%22%3A%22CS%22%2C%22Roles%22%3A%5B%7B%22RoleName%22%3A%22AliyunCSManagedNlcRole%22%2C%22TemplateId%22%3A%22AliyunCSManagedNlcRole%22%7D%5D%7D%5D%2C%22ReturnUrl%22%3A%22https%3A%2F%2Fcs.console.aliyun.com%2F%22%7D)
