@@ -30,12 +30,12 @@ jobs:
           push: true
           tags: ${{ vars.IMAGE }}:${{ steps.sha_short.outputs.sha_short }}
 
-      - name: Configure kubectl
-        uses: actions-hub/kubectl@master
-        env:
-          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+      - uses: aliyun/ack-set-context@v1
         with:
-          args: get pods
+          access-key-id: ${{ secrets.ACCESS_KEY }}
+          access-key-secret: ${{ secrets.PRIVATE_KEY }}
+          cluster-id: ${{ secrets.CLUSTER_ID }}
+          #KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
 
       - name: Update Kubernetes deployment
         run: make update-deployment DEPLOYMENT_NAME=${{ vars.DEPLOYMENT_NAME }} CONTAINER_NAME=${{ vars.CONTAINER_NAME }} IMAGE=${{ vars.IMAGE }} TAG=${{  steps.sha_short.outputs.sha_short }}
