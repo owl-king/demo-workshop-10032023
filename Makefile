@@ -5,9 +5,9 @@ build-image-m1:
 push-image:
 	docker push $(IMAGE):$(TAG)
 create-deployment:
-	kubectl create deployment hello --image=$(IMAGE):$(TAG) --port=3000
+	kubectl create deployment $(DEPLOYMENT_NAME) --image=$(IMAGE):$(TAG) --port=3000
 update-deployment:
-	kubectl set image deployment hello hello-nodejs=$(IMAGE):$(TAG)
+	kubectl set image deployment $(DEPLOYMENT_NAME) $(CONTAINER_NAME)=$(IMAGE):$(TAG)
 create-service:
-	kubectl create service loadbalancer hello --tcp=80:3000
+	kubectl create service loadbalancer $(SERVICE_NAME) --tcp=80:3000
 

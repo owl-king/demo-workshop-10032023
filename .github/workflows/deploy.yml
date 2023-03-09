@@ -1,0 +1,29 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          push: true
+          tags: ${{ env.IMAGE }}:${{ github.sha }}
+
+      - name: Configure kubectl
+        uses: docker/setup-kubectl@v1
+        with:
+          kubeconfig: ${{ secrets.KUBECONFIG }}
+
+      - name: Update Kubernetes deployment
+        run: make update-deployment DEPLOYMENT_NAME=${{ env.DEPLOYMENT_NAME }} CONTAINER_NAME=${{ env.CONTAINER_NAME }} IMAGE=${{ env.IMAGE }} TAG=${{ github.sha }}
+
