@@ -17,7 +17,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: ${{ env.IMAGE }}:${{ github.sha }}
+          tags: ${{ vars.IMAGE }}:${{ github.sha }}
 
       - name: Configure kubectl
         uses: actions-hub/kubectl@master
@@ -25,5 +25,5 @@ jobs:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
 
       - name: Update Kubernetes deployment
-        run: make update-deployment DEPLOYMENT_NAME=${{ env.DEPLOYMENT_NAME }} CONTAINER_NAME=${{ env.CONTAINER_NAME }} IMAGE=${{ env.IMAGE }} TAG=${{ github.sha }}
+        run: make update-deployment DEPLOYMENT_NAME=${{ vars.DEPLOYMENT_NAME }} CONTAINER_NAME=${{ vars.CONTAINER_NAME }} IMAGE=${{ vars.IMAGE }} TAG=${{ github.sha }}
 
