@@ -20,9 +20,9 @@ jobs:
           tags: ${{ env.IMAGE }}:${{ github.sha }}
 
       - name: Configure kubectl
-        uses: docker/setup-kubectl@v1
-        with:
-          kubeconfig: ${{ secrets.KUBECONFIG }}
+        uses: actions-hub/kubectl@master
+        env:
+          KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
 
       - name: Update Kubernetes deployment
         run: make update-deployment DEPLOYMENT_NAME=${{ env.DEPLOYMENT_NAME }} CONTAINER_NAME=${{ env.CONTAINER_NAME }} IMAGE=${{ env.IMAGE }} TAG=${{ github.sha }}
