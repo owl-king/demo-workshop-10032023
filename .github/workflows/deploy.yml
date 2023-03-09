@@ -34,6 +34,8 @@ jobs:
         uses: actions-hub/kubectl@master
         env:
           KUBE_CONFIG: ${{ secrets.KUBE_CONFIG }}
+        with:
+          args: get pods
 
       - name: Update Kubernetes deployment
         run: make update-deployment DEPLOYMENT_NAME=${{ vars.DEPLOYMENT_NAME }} CONTAINER_NAME=${{ vars.CONTAINER_NAME }} IMAGE=${{ vars.IMAGE }} TAG=${{  steps.sha_short.outputs.sha_short }}
