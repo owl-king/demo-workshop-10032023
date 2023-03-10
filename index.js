@@ -5,7 +5,7 @@ const port = 3000
 const requestHandler = (request, response) => {
   console.log(request.url)
   console.log(Date.now())
-  response.end('Hello Node.js Server! From Workshop')
+  response.end('Hello Node.js Server! From Workshop version1')
 }
 
 const server = http.createServer(requestHandler)
