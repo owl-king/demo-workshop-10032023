@@ -1,5 +1,7 @@
 # Demo Alibaba Workshop
 Date: 10-03-2023
+Video: [Onedrive](https://1drv.ms/v/s!AgXJg45RMchigqc_OIR6cpRPCQpadw?e=ZyGSep)
+Slide: [Slide](slide/slide.pptx)
 
 # Target
 - Quickly spin up infrastructure for a MVP node js application 
